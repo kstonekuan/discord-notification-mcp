@@ -24,9 +24,6 @@ importers:
       '@biomejs/biome':
         specifier: ^1.9.4
         version: 1.9.4
-      '@cloudflare/workers-types':
-        specifier: ^4.20250601.0
-        version: 4.20250601.0
       '@types/node':
         specifier: ^22.15.29
         version: 22.15.29
