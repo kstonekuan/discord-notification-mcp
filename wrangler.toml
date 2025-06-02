@@ -1,0 +1,15 @@
+name = "discord-notification-mcp"
+main = "src/index.ts"
+compatibility_date = "2025-03-10"
+compatibility_flags = ["nodejs_compat"]
+
+[[migrations]]
+new_sqlite_classes = ["DiscordMCP"]
+tag = "v1"
+
+[[durable_objects.bindings]]
+class_name = "DiscordMCP"
+name = "MCP_OBJECT"
+
+[observability]
+enabled = true

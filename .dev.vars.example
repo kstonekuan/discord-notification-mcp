@@ -1,0 +1,6 @@
+# Discord Webhook Configuration
+# Copy this file to .dev.vars and fill in your values
+
+# Required: Your Discord webhook URL
+# Get this from: Channel Settings → Integrations → Webhooks → Copy Webhook URL
+WEBHOOK_URL=https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN
