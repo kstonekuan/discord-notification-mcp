@@ -1,6 +1,10 @@
 # Discord Notification MCP Server
 
-An MCP (Model Context Protocol) server that sends notifications to Discord when Claude Code completes tasks. Built with TypeScript using the Cloudflare Agents SDK and deployable on Cloudflare Workers.
+<div align="center">
+  <img src="./images/logo.png" alt="Discord MCP Logo" width="200">
+  
+  An MCP (Model Context Protocol) server that sends notifications to Discord when Claude Code completes tasks. Built with TypeScript using the Cloudflare Agents SDK and deployable on Cloudflare Workers.
+</div>
 
 ## Features
 
@@ -139,6 +143,18 @@ Claude Code sends notifications when:
 # Result: 🤖 Claude Code Notification
 #         Error: Failed to process row 451 - invalid date format
 ```
+
+### Example Notifications
+
+<div align="center">
+  <img src="./images/discord.jpg" alt="Discord Notification Example" width="600">
+  <p><em>Example of Discord notifications from Claude Code</em></p>
+</div>
+
+<div align="center">
+  <img src="./images/claude_code.png" alt="Claude Code Integration Example" width="600">
+  <p><em>Claude Code sending notifications during task completion</em></p>
+</div>
 
 ### CLAUDE.md Examples
 
