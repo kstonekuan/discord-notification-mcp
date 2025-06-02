@@ -19,14 +19,21 @@ async function sendDiscordMessage(
 		tts?: boolean;
 		embeds?: APIEmbed[];
 		allowed_mentions?: APIAllowedMentions;
+		wait?: boolean;
 	},
-): Promise<APIMessage> {
+): Promise<APIMessage | null> {
 	const payload: RESTPostAPIWebhookWithTokenJSONBody = {
 		content,
 		...options,
 	};
 
-	const response = await fetch(webhookUrl, {
+	// Add ?wait=true to get message details back
+	const url = new URL(webhookUrl);
+	if (options?.wait !== false) {
+		url.searchParams.set("wait", "true");
+	}
+
+	const response = await fetch(url.toString(), {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -39,7 +46,17 @@ async function sendDiscordMessage(
 		throw new Error(`Discord API error: ${response.status} ${errorText}`);
 	}
 
-	return await response.json() as APIMessage;
+	// 204 No Content means success but no response body
+	if (response.status === 204) {
+		return null;
+	}
+
+	const responseText = await response.text();
+	if (!responseText) {
+		return null;
+	}
+
+	return JSON.parse(responseText) as APIMessage;
 }
 
 // Define our MCP agent with tools
@@ -92,7 +109,15 @@ export class DiscordMCP extends McpAgent {
 					.describe("Array of embed objects"),
 				allowed_mentions: z
 					.object({
-						parse: z.array(z.enum([AllowedMentionsTypes.Role, AllowedMentionsTypes.User, AllowedMentionsTypes.Everyone])).optional(),
+						parse: z
+							.array(
+								z.enum([
+									AllowedMentionsTypes.Role,
+									AllowedMentionsTypes.User,
+									AllowedMentionsTypes.Everyone,
+								]),
+							)
+							.optional(),
 						roles: z.array(z.string()).optional(),
 						users: z.array(z.string()).optional(),
 						replied_user: z.boolean().optional(),
@@ -100,12 +125,7 @@ export class DiscordMCP extends McpAgent {
 					.optional()
 					.describe("Allowed mentions object"),
 			},
-			async ({
-				content,
-				tts,
-				embeds,
-				allowed_mentions,
-			}) => {
+			async ({ content, tts, embeds, allowed_mentions }) => {
 				const env = this.env as Env;
 
 				if (!env.WEBHOOK_URL) {
@@ -127,7 +147,9 @@ export class DiscordMCP extends McpAgent {
 						content: [
 							{
 								type: "text",
-								text: `Message sent successfully to Discord (message ID: ${message.id})`,
+								text: message
+									? `Message sent successfully to Discord (message ID: ${message.id})`
+									: "Message sent successfully to Discord",
 							},
 						],
 					};
