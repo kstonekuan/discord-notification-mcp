@@ -69,6 +69,11 @@ npx wrangler secret put WEBHOOK_URL
 pnpm run deploy
 ```
 
+**Alternative: Continuous Deployment**
+
+You can also set up continuous deployment directly from the Cloudflare dashboard.
+Learn more about [Git Integration with Cloudflare](https://developers.cloudflare.com/pages/configuration/git-integration/)
+
 ### Claude Code Configuration
 
 Add the MCP server to Claude Code using the CLI via SSE transport:
