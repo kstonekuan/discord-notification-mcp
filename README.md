@@ -247,6 +247,10 @@ This project was built following these guides:
 - [MCP Transport Methods - Cloudflare Agents](https://developers.cloudflare.com/agents/model-context-protocol/transport/)
 - [Cloudflare MCP Template (remote-mcp-authless)](https://github.com/cloudflare/ai/tree/main/demos/remote-mcp-authless)
 
+## Related Projects
+
+- [Telegram Notification MCP](https://github.com/kstonekuan/telegram-notification-mcp) - Send notifications to Telegram instead of Discord
+
 ## License
 
 MIT
